@@ -4,11 +4,26 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { useState } from "react";
 export default function Home() {
+  const [state, setState] = useState("All");
+  const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const HandleInputValue = () => {
-    const value = e.target.value
-    setInputValue(value)
-  }
+
+  const handleInputValue = () => {
+    const value = e.target.value;
+    setInputValue(value);
+  };
+
+  const handleActiveButtonClick = () => {
+    setState("Active");
+  };
+
+  const handleCompleteButtonClick = () => {
+    setState("Completed");
+  };
+
+  const handleAllButton = () => {
+    setState("All")
+  };
   return (
     <div className={styles.primaryContainer}>
       <div className={styles.container}>
