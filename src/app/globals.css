@@ -47,3 +47,24 @@ a {
     color-scheme: dark;
   }
 }
+.primaryContainer {
+  width: 1440px;
+  height: 1024px;
+  background: rgba(243, 244, 246, 1);
+}
+.container {
+  width: 377px;
+  height: 290px;
+  top: 140px;
+  left: 532px;
+  border-radius: 6px;
+  padding-top: 24px;
+  padding-right: 16px;
+  padding-bottom: 24px;
+  padding-left: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  background-color: rebeccapurple;
+}
