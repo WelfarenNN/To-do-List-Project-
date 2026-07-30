@@ -246,6 +246,20 @@ a.secondary {
   display: flex;
   gap: 6px;
 }
+.buttonAdd {
+  width: 59px;
+  height: 40px;
+  border-radius: 6px;
+  padding-top: 8px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: #3c82f6;
+}
 .buttonAll {
   width: 38px;
   height: 32px;

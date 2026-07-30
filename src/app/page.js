@@ -8,7 +8,7 @@ export default function Home() {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
-  const handleInputValue = () => {
+  const handleInputChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
   };
@@ -22,8 +22,19 @@ export default function Home() {
   };
 
   const handleAllButton = () => {
-    setState("All")
+    setState("All");
   };
+  const handleAddButton = () => {
+    const newTodo = {
+      id: Date.now(),
+      title: inputValue,
+      isDone: false,
+    };
+    setTodos([...todos, inputValue]);
+    setInputValue("");
+  };
+  console.log(todos,"its working")
+
   return (
     <div className={styles.primaryContainer}>
       <div className={styles.container}>
@@ -31,13 +42,32 @@ export default function Home() {
           <div className={styles.innerContainer}>
             <span className={styles.todolist}>To-Do list</span>
             <div className={styles.addtaskContainer}>
-              <span className={styles.addtask}>Add a new task...</span>
-              <span>Add</span>
+              <input
+                className={styles.addtask}
+                onChange={handleInputChange}
+                placeholder="Add a new task..."
+                value={inputValue}
+              />
+              <div className={styles.buttonAdd} onClick={handleAddButton}>
+                Add
+              </div>
             </div>
             <div className={styles.buttons}>
-              <button className={styles.buttonAll}>All</button>
-              <button className={styles.buttonActive}>Active</button>
-              <button className={styles.buttonComplete}>Completed</button>
+              <div className={styles.buttonAll} onClick={handleAllButton}>
+                All
+              </div>
+              <div
+                className={styles.buttonActive}
+                onClick={handleActiveButtonClick}
+              >
+                Active
+              </div>
+              <div
+                className={styles.buttonComplete}
+                onClick={handleCompleteButtonClick}
+              >
+                Completed
+              </div>
             </div>
           </div>
           <span className={styles.piFooter}>No tasks yet. Add one above!</span>
