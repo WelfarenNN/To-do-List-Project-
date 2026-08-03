@@ -3,6 +3,11 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { useState } from "react";
+
+function checkLocal(){
+  const todos = typeof window !== "undefined" ? localStorage.getItem("todos") : null;
+  return todos ? JSON.parse(todos) : [];
+}
 export default function Home() {
   const [state, setState] = useState("All");
   const [todos, setTodos] = useState([]);
