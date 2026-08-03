@@ -1,85 +1,140 @@
 "use client";
 
-import Image from "next/image";
 import styles from "./page.module.css";
 import { useState } from "react";
+import { TodoActionButton } from "./components/TodoActionButton";
+import { TodoButton } from "./components/Todo-button";
 
-function checkLocal(){
-  const todos = typeof window !== "undefined" ? localStorage.getItem("todos") : null;
-  return todos ? JSON.parse(todos) : [];
+function checkLocal() {
+  if (typeof window !== "undefined") {
+    const todos = localStorage.getItem("todos");
+    return todos ? JSON.parse(todos) : [];
+  }
+  return [];
 }
+
 export default function Home() {
-  const [state, setState] = useState("All");
   const [todos, setTodos] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const [filter, setFilter] = useState("All");
+  const [text, setText] = useState("");
+  const isEmpty = text.trim() === "";
+  const isToolong = text.length > 40;
+  const doneCount = todos.filter((todo) => todo.done).length;
+  const hasCompleted = todos.some((todo) => todo.done);
 
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setInputValue(value);
-  };
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (isEmpty || isToolong) return;
 
-  const handleActiveButtonClick = () => {
-    setState("Active");
-  };
-
-  const handleCompleteButtonClick = () => {
-    setState("Completed");
-  };
-
-  const handleAllButton = () => {
-    setState("All");
-  };
-  const handleAddButton = () => {
     const newTodo = {
       id: Date.now(),
-      title: inputValue,
-      isDone: false,
+      text: text,
+      done: false,
     };
-    setTodos([...todos, inputValue]);
-    setInputValue("");
-  };
-  console.log(todos,"its working")
+    setTodos([...todos, newTodo]);
+    setText("");
+  }
+
+  function handleToggle(id) {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, done: !todo.done } : todo,
+      ),
+    );
+  }
+
+  function handleDelete(id) {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  }
+
+  function handleClearCompleted() {
+    setTodos(todos.filter((todo) => !todo.done));
+  }
+
+  let filteredTodos = todos;
+  if (filter === "Active") {
+    filteredTodos = todos.filter((todo) => !todo.done);
+  } else if (filter === "Completed") {
+    filteredTodos = todos.filter((todo) => todo.done);
+  }
 
   return (
-    <div className={styles.primaryContainer}>
-      <div className={styles.container}>
-        <div className={styles.piContainer}>
-          <div className={styles.innerContainer}>
-            <span className={styles.todolist}>To-Do list</span>
-            <div className={styles.addtaskContainer}>
-              <input
-                className={styles.addtask}
-                onChange={handleInputChange}
-                placeholder="Add a new task..."
-                value={inputValue}
-              />
-              <div className={styles.buttonAdd} onClick={handleAddButton}>
-                Add
-              </div>
-            </div>
-            <div className={styles.buttons}>
-              <div className={styles.buttonAll} onClick={handleAllButton}>
-                All
-              </div>
-              <div
-                className={styles.buttonActive}
-                onClick={handleActiveButtonClick}
-              >
-                Active
-              </div>
-              <div
-                className={styles.buttonComplete}
-                onClick={handleCompleteButtonClick}
-              >
-                Completed
-              </div>
-            </div>
-          </div>
-          <span className={styles.piFooter}>No tasks yet. Add one above!</span>
+    <div className={styles.container}>
+      <div className={styles.innerContainer}>
+        <h1>To-Do list</h1>
+
+        <form className={styles.addtaskContainer} onSubmit={handleSubmit}>
+          <input
+            className={styles.addtask}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="Add a new task..."
+          />
+          <button type="submit" disabled={isEmpty || isToolong}>
+            Add
+          </button>
+        </form>
+        <div className={styles.filters}>
+          <TodoButton
+            isActive={filter === "All"}
+            onClick={() => setFilter("All")}
+            text="All"
+          >
+            All
+          </TodoButton>
+          <TodoButton
+            isActive={filter === "Active"}
+            onClick={() => setFilter("Active")}
+            text="Active"
+          >
+            Active
+          </TodoButton>
+          <TodoButton
+            isActive={filter === "Completed"}
+            onClick={() => setFilter("Completed")}
+            text="Completed"
+          >
+            Completed
+          </TodoButton>
         </div>
-        <div className={styles.containerFooter}>
-          <span className={styles.CFT1}>Powered by</span>
-          <span className={styles.CFT2}>Pinecone academy</span>
+        {filteredTodos.length === 0 ? (
+          <div className={styles.emptyState}>No tasks yet. Add one above!</div>
+        ) : (
+          <ul className={styles.todoList}>
+            {filteredTodos.map((todo) => (
+              <li key={todo.id} className={todo.done ? styles.completed : ""}>
+                <input
+                  type="checkbox"
+                  checked={todo.done}
+                  onChange={() => handleToggle(todo.id)}
+                />
+                <span className={styles.todoText}>{todo.text}</span>
+                <div className={styles.deleteContainer}>
+                  <TodoActionButton onClick={() => handleDelete(todo.id)}>
+                    Delete
+                  </TodoActionButton>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+        {todos.length > 0 && (
+          <div className={styles.footer}>
+            <span>
+              {doneCount} of {todos.length} tasks completed
+            </span>
+            {hasCompleted && (
+              <button
+                onClick={handleClearCompleted}
+                className={styles.clearBtn}
+              >
+                Clear completed
+              </button>
+            )}
+          </div>
+        )}
+        <div className={styles.brand}>
+          Powered by <span>Pinecone academy</span>
         </div>
       </div>
     </div>

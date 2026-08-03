@@ -140,165 +140,163 @@ a.secondary {
     --button-secondary-border: #1a1a1a;
   }
 }
-.primaryContainer {
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #f8fafc;
+  font-family: system-ui, -apple-system, sans-serif;
+  padding: 20px;
 }
-.container {
-  width: 377px;
-  height: 290px;
-  top: 140px;
-  left: 532px;
-  border-radius: 6px;
-  padding-top: 24px;
-  padding-right: 16px;
-  padding-bottom: 24px;
-  padding-left: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 40px;
-  background-color: rgba(255, 255, 255, 1);
-  border-radius: 6px;
-  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.16);
-  box-sizing: border-box;
-}
-.piContainer {
-  width: 345px;
-  height: 187px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-.piFooter {
-  font-family: sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  text-align: center;
-  color: #6b7280;
-}
+
 .innerContainer {
-  width: 345px;
-  height: 138px;
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 540px;
+}
+
+.innerContainer h1 {
+  color: #000000;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.addtaskContainer {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.addtask {
+  flex: 1;
+  padding: 16px 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 18px;
+  color: #334155;
+  outline: none;
+}
+
+.addtask:focus {
+  border-color: #3b82f6;
+}
+
+.addtask::placeholder {
+  color: #94a3b8;
+}
+
+.addtaskContainer button {
+  padding: 0 28px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.emptyState {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 18px;
+  margin: 40px 0;
+}
+
+.todoList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
-.containerFooter {
-  width: 345px;
-  height: 15px;
+
+.todoList li {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 14px;
+  padding: 20px;
+  background-color: #f8fafc;
+  border-radius: 10px;
+  min-height: 64px;
 }
-.CFT1 {
-  font-family: sans-serif;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: rgba(107, 114, 128, 1);
+
+/* Зөвхөн дууссан үед арын өнгийг цагаан хэвээр үлдээх эсвэл загварын дагуу тохируулах */
+.completed {
+  background-color: #f8fafc;
 }
-.CFT2 {
-  font-family: sans-serif;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: rgba(59, 115, 237, 1);
+
+.todoText {
+  flex: 1;
+  font-size: 18px;
+  color: #1e293b;
 }
-.todolist {
-  font-family: sans-serif;
-  font-weight: 600;
-  font-style: Bold;
-  font-size: 20px;
-  line-height: 28px;
-  letter-spacing: -2.5%;
+
+.completed .todoText {
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+
+/* Checkbox-ын загвар */
+.todoList li input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* Хулгана дээгүүр очих үед л Delete товчлуур харагдана */
+.todoList li .deleteContainer {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.todoList li:hover .deleteContainer {
+  opacity: 1;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 20px;
+  margin-bottom: 40px;
+  font-size: 15px;
+  color: #94a3b8;
+}
+
+/* Clear completed товчлуур улаан өнгөтэй болсон */
+.clearBtn {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.clearBtn:hover {
+  text-decoration: underline;
+}
+
+.brand {
   text-align: center;
+  font-size: 15px;
+  color: #94a3b8;
 }
-.addtaskContainer {
-  width: 345px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.addtask {
-  width: 280px;
-  height: 40px;
-  border-radius: 6px;
-  padding-top: 8px;
-  padding-right: 16px;
-  padding-bottom: 8px;
-  padding-left: 16px;
-  border-width: 1px;
-  border: 1px solid var(--border-border-border, #e4e4e7);
-}
-.buttons {
-  width: 345px;
-  height: 32px;
-  display: flex;
-  gap: 6px;
-}
-.buttonAdd {
-  width: 59px;
-  height: 40px;
-  border-radius: 6px;
-  padding-top: 8px;
-  padding-right: 16px;
-  padding-bottom: 8px;
-  padding-left: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  background: #3c82f6;
-}
-.buttonAll {
-  width: 38px;
-  height: 32px;
-  border-radius: 6px;
-  padding-top: 4px;
-  padding-right: 12px;
-  padding-bottom: 4px;
-  padding-left: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  background: #f3f4f6;
-}
-.buttonActive {
-  width: 60px;
-  height: 32px;
-  border-radius: 6px;
-  padding-top: 4px;
-  padding-right: 12px;
-  padding-bottom: 4px;
-  padding-left: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  background: #f3f4f6;
-}
-.buttonComplete {
-  width: 87px;
-  height: 32px;
-  border-radius: 6px;
-  padding-top: 4px;
-  padding-right: 12px;
-  padding-bottom: 4px;
-  padding-left: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  background: #f3f4f6;
+
+.brand span {
+  color: #3b82f6;
 }
